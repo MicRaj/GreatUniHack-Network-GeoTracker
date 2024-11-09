@@ -3,10 +3,11 @@
   import Timeline from "../Timeline.svelte";
 
   let marker1Position = 0;
-  let marker2Position = 100;
+  let marker2Position = 1;
+
 </script>
 <Navbar />
-<Timeline bind:marker1Position bind:marker2Position timelineWidth=700/>
+<Timeline bind:normPos1={marker1Position} bind:normPos2={marker2Position} timelineWidth=700/>
 <div>
   <p>Marker 1 Position: {marker1Position}</p>
   <p>Marker 2 Position: {marker2Position}</p>

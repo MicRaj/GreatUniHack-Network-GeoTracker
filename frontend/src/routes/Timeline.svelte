@@ -1,10 +1,11 @@
 <script>
-    export let marker1Position = 0;
-    export let marker2Position = 0;
-    
     export let timelineWidth;
 
-    let adjustedtimelineWidth = timelineWidth;
+    export let marker1Position = 0;
+    export let marker2Position = timelineWidth;
+
+    export let normPos1=marker1Position/timelineWidth;
+    export let normPos2=marker2Position/timelineWidth;
 
     let dragMarker = null;
     let timelineRect;
@@ -20,8 +21,10 @@
             // Prevent markers from crossing each other
             if (dragMarker === 'marker1' && newPos < marker2Position) {
                 marker1Position = newPos;
+                normPos1=marker1Position/timelineWidth;
             } else if (dragMarker === 'marker2' && newPos > marker1Position) {
                 marker2Position = newPos;
+                normPos2=marker2Position/timelineWidth;
             }
         }
     }
