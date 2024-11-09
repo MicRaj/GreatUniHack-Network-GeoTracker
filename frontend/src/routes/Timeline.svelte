@@ -51,15 +51,15 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      width: 100%;
     }
 
     .timeline-container {
       position: relative;
       width: 100%;
       height: 30px;
-      background-color: #e0e0e0;
-      border-radius: 5px;
+      background-color: #141111;
+      border-radius: 1px;
     }
   
     .timeline-line {
@@ -67,9 +67,17 @@
       top: 50%;
       left: 0;
       right: 0;
-      height: 2px;
-      background-color: #333;
+      height: 4px;
+      background-color: #ffffff;
       transform: translateY(-50%);
+    }
+        /* Active line style */
+    .active-line {
+        position: absolute;
+        top: 50%;
+        height: 5px;
+        background-color: #FF4F00; /* Distinct color for the line between markers */
+        transform: translateY(-50%);
     }
   
     .marker {
@@ -77,8 +85,7 @@
       top: 50%;
       width: 8px;
       height: 20px;
-      background-color: #007BFF;
-      border-radius: 25%;
+      background-color: #FFAF8B;
       cursor: pointer;
       transform: translateY(-50%);
       user-select: none;
@@ -95,7 +102,11 @@
   <div class= "center-wrapper">
   <div class="timeline-container" style="width: {parseInt(timelineWidth)+8}px">
     <div class="timeline-line"></div>
-    
+        <!-- Active line between markers -->
+    <div
+        class="active-line"
+        style="left: {marker1Position}px; width: {marker2Position - marker1Position}px;"
+    ></div>
     <!-- Updated: Added role="slider" and replaced on:mousedown with onmousedown -->
     <div
       class="marker marker1"

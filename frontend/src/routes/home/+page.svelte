@@ -7,7 +7,7 @@
 
 </script>
 <Navbar />
-<Timeline bind:normPos1={marker1Position} bind:normPos2={marker2Position} timelineWidth=700/>
+<Timeline bind:normPos1={marker1Position} bind:normPos2={marker2Position} timelineWidth=1000/>
 <div>
   <p>Marker 1 Position: {marker1Position}</p>
   <p>Marker 2 Position: {marker2Position}</p>
