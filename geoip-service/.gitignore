@@ -1,5 +1,7 @@
 allCountries.txt
-database.db
+*.db
 countries.csv
 geodata.csv
-GeoLite2-City_blocks-IPv4.csv
+GeoLite2-City-Blocks-IPv4.csv
+.idea/*
+combined.csv
