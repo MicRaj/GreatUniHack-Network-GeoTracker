@@ -1,11 +1,12 @@
 <script>
     export let marker1Position = 0;
     export let marker2Position = 0;
+    
+    export let timelineWidth;
 
+    let adjustedtimelineWidth = timelineWidth;
 
     let dragMarker = null;
-    let timelineWidth = 1500; // Timeline width
-  
     let timelineRect;
 
     function handleDrag(e) {
@@ -43,9 +44,16 @@
   </script>
   
   <style>
+    .center-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
     .timeline-container {
       position: relative;
-      width: 1500px;
+      width: 100%;
       height: 30px;
       background-color: #e0e0e0;
       border-radius: 5px;
@@ -81,8 +89,8 @@
       left: var(--marker2-position);
     }
   </style>
-  
-  <div class="timeline-container" >
+  <div class= "center-wrapper">
+  <div class="timeline-container" style="width: {parseInt(timelineWidth)+8}px">
     <div class="timeline-line"></div>
     
     <!-- Updated: Added role="slider" and replaced on:mousedown with onmousedown -->
@@ -90,7 +98,7 @@
       class="marker marker1"
       role="slider"
       aria-valuemin="0"
-      aria-valuemax="500"
+      aria-valuemax="{timelineWidth}"
       aria-valuenow="{marker1Position}"
       style="--marker1-position: {marker1Position}px;"
       onmousedown={(e) => startDrag(e, 'marker1')}
@@ -101,12 +109,12 @@
       class="marker marker2"
       role="slider"
       aria-valuemin="0"
-      aria-valuemax="500"
+      aria-valuemax="{timelineWidth}"
       aria-valuenow="{marker2Position}"
       style="--marker2-position: {marker2Position}px;"
       onmousedown={(e) => startDrag(e, 'marker2')}
       tabindex="0"
     ></div>
   </div>
-  
+</div>
   
