@@ -87,25 +87,40 @@
   onMount(getCoordinates);
 </script>
 
-<p>{marker1Position} {marker2Position}</p>
+
 <div class="timestamp-container">
-  <Timestamp bind:epochTime={epochTime1} />
-  <Timestamp bind:epochTime={epochTime2} />
+  <div class="left">
+    <Timestamp bind:epochTime={epochTime1} />
+  </div>
+  <div class="right">
+    <Timestamp bind:epochTime={epochTime2} />
+  </div>
 </div>
 <Timeline
   bind:normPos1={marker1Position}
   bind:normPos2={marker2Position}
-  timelineWidth="1000"
+  timelineWidth="1550"
   sendGetRequest={fetchData}
 />
 <Earth />
 
 <style>
   .timestamp-container {
+    position: absolute;
     display: flex;
     justify-content: space-between;
+    z-index: 10;
     align-items: center;
     padding: 20px;
+  }
+  .left{
+
+    padding-right: 10%;
+    padding-left: 14%;
+  }
+  .right{
+    padding-right: 10%;
+    padding-left: 240%;
   }
 
   .timestamp-container > * {

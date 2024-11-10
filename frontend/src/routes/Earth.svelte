@@ -58,7 +58,6 @@
         <h1>graph2</h1>
         <h1>graph3</h1>
         <h1>graph4</h1>
-        <button id="line-test" on:click={addNewArc}>click me</button>
       </div>
     </div>
   </div>
@@ -90,22 +89,24 @@
     font-family: 'RobotoMono-Regular', monospace;
     position: absolute;
     width: 568px;
-    height: 269px;
-    top: 240px;
+    height: 500px;
+    top: 200px;
     left: 83px;
     z-index: 3;
     background-color: #0C0C0C;
     color: white;
     opacity: 65%;
     overflow-y: hidden;
+    scrollbar-gutter: stable both-edges;
   }
   div.border:hover{
     overflow-y: scroll;
     scrollbar-width: thin;
+    
   }
   div.title {
     width: 100%;
-    height: 50px;
+    height: 100px;
     margin: 5px;
     padding: 10px;
   }
