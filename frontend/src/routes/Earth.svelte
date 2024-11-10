@@ -10,7 +10,7 @@
       const Globe = (await import("globe.gl")).default;
       earth = Globe()
         .globeImageUrl("/2k_earth_daymap.jpg")
-        .width(2200)
+        .width(2100)
         .showGraticules(true)
         .showAtmosphere(false)
         .arcsData(arcsData)
@@ -33,15 +33,9 @@
         color: "red",
       },
     ];
-    // earth.arcsData(arcsData);
+    earth.arcsData(arcsData);
     console.log(arcsData); // To verify that the new line is added
   }
-  function updateArcs() {
-    if (earth) {
-      earth.arcsData(arcsData);
-    }
-  }
-  $: updateArcs();
 </script>
 
 <div class="position">
@@ -55,7 +49,6 @@
         <h1>graph2</h1>
         <h1>graph3</h1>
         <h1>graph4</h1>
-        <button id="line-test" on:click={addNewArc}>click me</button>
       </div>
     </div>
   </div>
@@ -83,19 +76,28 @@
     text-align: center;
   }
   div.border {
+    font-family: "RobotoMono-Regular", monospace;
     position: absolute;
-    width: 432px;
-    top: 240px;
-    left: 108px;
+    width: 568px;
+    height: 500px;
+    top: 200px;
+    left: 83px;
     z-index: 3;
-    background-color: white;
+    background-color: #0c0c0c;
+    color: white;
+    opacity: 65%;
+    overflow-y: hidden;
+    scrollbar-gutter: stable both-edges;
+  }
+  div.border:hover {
+    overflow-y: scroll;
+    scrollbar-width: thin;
   }
   div.title {
     width: 100%;
-    height: 50px;
+    height: 100px;
     margin: 5px;
     padding: 10px;
-    border: 1px solid black;
   }
   div.graphs {
     display: flex;
@@ -103,7 +105,6 @@
     justify-content: space-around;
   }
   div.graphs h1 {
-    border: 1px solid black;
     padding: 40px;
   }
 </style>
