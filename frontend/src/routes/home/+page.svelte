@@ -109,7 +109,6 @@ if (earth){
   onMount(()=>{getCoordinates(); fetchData();});
 </script>
 
-
 <div class="timestamp-container">
   <div class="left">
     <Timestamp bind:epochTime={epochTime1} />
@@ -124,7 +123,13 @@ if (earth){
   timelineWidth="1550"
   sendGetRequest={fetchData}
 />
-<Earth bind:this={earth}/>
+<Earth
+  bind:this={earth}
+  bind:marker2Position
+  bind:epochTime1
+  bind:epochTime2
+  bind:marker1Position
+/>
 
 <style>
   .timestamp-container {
@@ -136,13 +141,12 @@ if (earth){
     padding-top: 20px;
     pointer-events: none;
   }
-  .left{
-
+  .left {
     padding-right: 10%;
     padding-left: 10%;
     pointer-events: none;
   }
-  .right{
+  .right {
     padding-right: 10%;
     padding-left: 149%;
     pointer-events: none;
