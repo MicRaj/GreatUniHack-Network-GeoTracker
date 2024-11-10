@@ -1,13 +1,9 @@
 <script>
-  import { onMount } from "svelte";
-
   // Props
   export let epochTime; // Epoch timestamp in seconds
-  export let autoUpdate = false; // Boolean to enable/disable live updates
 
   // Convert the epoch time to a Date object
   let dateTime;
-  let interval;
 
   // Function to update the dateTime
   $: dateTime = new Date(epochTime * 1000);
@@ -27,8 +23,10 @@
 
 <style>
   .datetime-display {
-    font-family: Arial, sans-serif;
-    color: #333;
+    font-family: DepartureMono-Regular, monospace;
+    margin: 10%;
+    text-wrap: nowrap;
+    color: white;
   }
   .datetime-display p {
     margin: 0.5em 0;
