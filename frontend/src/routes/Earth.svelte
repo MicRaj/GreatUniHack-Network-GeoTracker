@@ -20,7 +20,7 @@ onMount(async() => {
 
         const Globe = (await import('globe.gl')).default;
         earth = Globe()
-            .globeImageUrl('/2k_earth_xray_map.png')
+            .globeImageUrl('/2k_earth_daymap.jpg')
             .width(2200)
             .showGraticules(true)
             .showAtmosphere(false)
