@@ -1,8 +1,11 @@
 from typing import Union
 
 from fastapi import FastAPI
+from app.api.endpoints.upload import router as upload_router
 
 app = FastAPI()
+
+app.include_router(upload_router, prefix="/upload")
 
 
 @app.get("/")
