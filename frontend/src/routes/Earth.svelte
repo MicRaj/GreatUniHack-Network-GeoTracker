@@ -15,7 +15,7 @@
   export function updateArcs(arcsData) {
     earth = Globe()
     .onArcClick((arc) => arcclick(arc))
-        .globeImageUrl("/2k_earth_daymap.jpg")
+        .globeImageUrl("/nasa_hq.jpg")
         .width(2100)
         .showGraticules(true)
         .showAtmosphere(true)
