@@ -8,35 +8,54 @@
 
   let Globe;
 
+  let selectedTitle = "Select a node!";
+  let selectedacc = "We'll show the accuracy here!";
+  let selectedpost = "We'll show the post-code here!";
+
   onMount(async () => {
     if (browser) {
       Globe = (await import("globe.gl")).default;
+
+      //   updateArcs([]);
     }
-    updateArcs([
-      {
-        startLat: 0,
-        startLng: 0,
-        endLat: 51.2,
-        endLng: 0,
-        color: "red",
-      },
-    ]);
   });
 
   export function updateArcs(arcsData) {
-    earth = Globe()
-      .globeImageUrl("/2k_earth_daymap.jpg")
-      .width(2100)
-      .showGraticules(true)
-      .showAtmosphere(true)
-      .arcColor("color")
-      .arcDashLength(0.9)
-      .arcDashGap(1.0)
-      .arcDashAnimateTime(() => Math.random() * 4000 + 500)
-      .backgroundImageUrl("/2k_stars.jpg")(document.getElementById("earth"))
-      .arcsData(arcsData);
+    if (browser) {
+      earth = Globe()
+        .onArcClick((arc) => arcclick(arc))
+        .globeImageUrl("/nasa_hq.jpg")
+        .width(2100)
+        .showGraticules(true)
+        .showAtmosphere(true)
+        .arcStroke(1.5)
+        .arcsData(arcsData)
+        .arcColor("color")
+        .arcDashLength(0.9)
+        .arcStroke(1.5)
+        // .arcDashGap(1.0)
+        // .arcDashAnimateTime(() => Math.random() * 4000 + 500)
+        .backgroundImageUrl("/2k_stars.jpg")(document.getElementById("earth"))
+        .arcsData(arcsData);
+    }
   }
 
+  function arcclick(arc) {
+    //templpate function for on click stuff
+    console.log(arc);
+    console.log(arc.color);
+    if (arc._orig.place != "") {
+      selectedTitle = arc._orig.place;
+    } else {
+      selectedTitle = arc._orig.registered_country;
+    }
+    selectedacc = arc._orig.accuracy_radius;
+    if (arc._orig.postal_code != null) {
+      selectedpost = arc._orig.postal_code;
+    } else {
+      selectedpost = "No post-code available";
+    }
+  }
   let UPD_count = 0;
   let TCP_count = 0;
   let TCP_size = 0;
@@ -56,16 +75,11 @@
 
       // Loop through the data and create div elements for each protocol
 
-      document.getElementById("UDP_stats").setAttribute("display", "none");
-      document.getElementById("TCP_stats").setAttribute("display", "none");
-
       data.forEach((protocol) => {
         if (protocol.protocol === "UDP") {
-          document.getElementById("UDP_stats").setAttribute("display", "block");
           UDP_size = protocol.size;
           UPD_count = protocol.count;
         } else if (protocol.protocol === "TCP") {
-          document.getElementById("TCP_stats").setAttribute("display", "block");
           TCP_size = protocol.size;
           TCP_count = protocol.count;
         }
@@ -81,15 +95,17 @@
 <div class="position">
   <div class="border">
     <div class="data">
-      <h1>Statistics</h1>
-      <div id="UDP_stats" display="none" class="stats_stuff">
-        <h2 class="title">UDP</h2>
-        <div class="graphs">
-          <p class="count_num">{UPD_count} packets sent</p>
-          <p class="size_num">
-            {Math.round((UDP_size / 1048576) * 100) / 100} MB total size
-          </p>
-        </div>
+      <h1 id="title">{selectedTitle}</h1>
+      <h4>accuracy:{selectedacc}</h4>
+      <h4>post-code:{selectedpost}</h4>
+    </div>
+    <div id="UDP_stats" display="none" class="stats_stuff">
+      <h2 class="title">UDP</h2>
+      <div class="graphs">
+        <p class="count_num">{UPD_count} packets sent</p>
+        <p class="size_num">
+          {Math.round((UDP_size / 1048576) * 100) / 100} MB total size
+        </p>
       </div>
       <div id="TCP_stats" display="none" class="stats_stuff">
         <h2 class="title">TCP</h2>
@@ -181,9 +197,16 @@
   } */
   div.title {
     width: 100%;
-    height: 100px;
     margin: 5px;
     padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  div.title h1 {
+    font-size: 3.5em;
+    margin: 0;
   }
   div.graphs {
     display: flex;

@@ -22,12 +22,12 @@
 
   // Function to fetch data from an API
   async function fetchData() {
-    try {
+    // try {
       // Set loading to true while fetching data
       loading = true;
       // Replace with your API endpoint
       const response = await fetch(
-        `http://127.0.0.1:8000/data?starttime=${epochTime1}&endtime=${epochTime2}`
+        `http://127.0.0.1:8000/data?starttime=${epochTime1}&endtime=${epochTime2}`,
       ); // TODO ROUTE
 
       if (!response.ok) {
@@ -36,23 +36,33 @@
 
       // Parse the JSON response
       data = await response.json();
+      console.log(data)
 
-      console.log("HERE");
-      earth.updateArcs([
-        {
-          startLat: 0,
-          startLng: 0,
-          endLat: 89,
-          endLng: 32,
-          color: "red",
-        },
-      ]);
-    } catch (err) {
-      error = err.message;
-      console.log(error);
-    } finally {
-      loading = false;
-    }
+      let newArcsData = [];
+      for (let i = 0; i < data.length; i++) {
+        let item = data[i];
+        if (item.latitude !== null && item.longitude !== null) {
+          newArcsData.push({
+            startLat: latitude,
+            startLng: longitude,
+            endLat: item.latitude,
+            endLng: item.longitude,
+            color: "red",
+            _orig: item
+          });
+        }
+      }
+
+if (earth){
+      console.log("HERE")
+      earth.updateArcs(newArcsData);
+}
+    // } catch (err) {
+    //   error = err.message;
+    //   console.log(error);
+    // } finally {
+    //   loading = false;
+    // }
   }
 
   // Get user coordinates on page load.
@@ -96,7 +106,7 @@
 
   // Call the function to get coordinates when the component is mounted
   import { onMount } from "svelte";
-  onMount(getCoordinates);
+  onMount(()=>{getCoordinates(); fetchData();});
 </script>
 
 <div class="timestamp-container">
