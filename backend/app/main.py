@@ -1,8 +1,10 @@
 from typing import Union
 
 from fastapi import FastAPI
+from app.core.database import create_db_and_tables, SessionDep
 
 app = FastAPI()
+create_db_and_tables()
 
 
 @app.get("/")
