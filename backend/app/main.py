@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from app.core.database import create_db_and_tables, SessionDep
 from app.core.geoip import get_geo_info
 from app.api.endpoints.upload import router as upload_router
+from app.api.endpoints.data import router as data_router
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 
@@ -15,6 +16,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 app.include_router(upload_router)
+app.include_router(data_router)
 
 # Allowing CORS from the specific origin (localhost:5173) or any origin
 origins = [
