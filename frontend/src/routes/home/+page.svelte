@@ -116,11 +116,11 @@
   .left{
 
     padding-right: 10%;
-    padding-left: 14%;
+    padding-left: 8%;
   }
   .right{
     padding-right: 10%;
-    padding-left: 240%;
+    padding-left: 150%;
   }
 
   .timestamp-container > * {

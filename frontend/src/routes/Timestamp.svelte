@@ -27,7 +27,7 @@
 
 <style>
   .datetime-display {
-    font-family: Arial, sans-serif;
+    font-family: DepartureMono-Regular, monospace;
     margin: 10%;
     text-wrap: nowrap;
     color: white;
