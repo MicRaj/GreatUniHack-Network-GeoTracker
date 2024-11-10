@@ -93,7 +93,7 @@
     top: 200px;
     left: 83px;
     z-index: 3;
-    background-color: #0C0C0C;
+    background-color: rgba(12, 12, 12, 0.8);
     color: white;
     opacity: 65%;
     overflow-y: hidden;

@@ -112,8 +112,7 @@
     width: 100%;
     z-index: 3;
     padding-top: 80px;
-    background-color: #0C0C0C;
-    opacity: 65%;
+    background-color: rgba(12, 12, 12, 0.8);
   }
 
   .timeline-container {
@@ -122,7 +121,8 @@
     align-items: stretch;
     width: 100%;
     height: 30px;
-    background-color: #141111;
+    background-color: rgba(12, 12, 12, 0.8);
+    z-index: 4;
     border-radius: 1px;
   }
 

@@ -109,18 +109,21 @@
     position: absolute;
     display: flex;
     justify-content: space-between;
-    z-index: 10;
+    z-index: 4;
     align-items: center;
-    padding: 20px;
+    padding-top: 20px;
+    pointer-events: none;
   }
   .left{
 
     padding-right: 10%;
-    padding-left: 8%;
+    padding-left: 10%;
+    pointer-events: none;
   }
   .right{
     padding-right: 10%;
     padding-left: 150%;
+    pointer-events: none;
   }
 
   .timestamp-container > * {
