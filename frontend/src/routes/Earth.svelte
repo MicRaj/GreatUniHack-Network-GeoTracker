@@ -4,10 +4,10 @@
   let earth;
   let N = 20;
   let arcsData = Array.from({ length: N }, () => ({
-    startLat: 53.484824,
-    startLng: -2.240126,
-    endLat: 38.897957,
-    endLng: -77.03656,
+    startLat: [Math.round(Math.random() * 3)] *180,
+    startLng: [Math.round(Math.random() * 3)] *360,
+    endLat: [Math.round(Math.random() * 3)] *360,
+    endLng: [Math.round(Math.random() * 3)] *180,
     color: [
       ["red", "white", "blue", "green"][Math.round(Math.random() * 3)],
       ["red", "white", "blue", "green"][Math.round(Math.random() * 3)],
@@ -18,19 +18,26 @@
     if (browser) {
       const Globe = (await import("globe.gl")).default;
       earth = Globe()
+      .onArcClick((arc) => arcclick(arc))// ON CLICK TEMPLATE FUNCTION
         .globeImageUrl("/2k_earth_daymap.jpg")
         .width(2100)
         .showGraticules(true)
         .showAtmosphere(false)
+        .arcStroke(1.5)
         .arcsData(arcsData)
         .arcColor("color")
         .arcDashLength(0.9)
-        .arcDashGap(1.0)
+        .arcDashGap(0.5)
         .arcDashAnimateTime(() => Math.random() * 4000 + 500)
         .backgroundImageUrl("/2k_stars.jpg")(document.getElementById("earth"));
     }
   });
+  function arcclick(arc){//templpate function for on click stuff
+    let name = document.getElementById("name");
+     name.innerText = arc.color;
+    console.log(arc.color);
 
+  }
   function addNewArc() {
     arcsData = [
       ...arcsData,
@@ -51,7 +58,7 @@
   <div class="border">
     <div class="data">
       <div class="title">
-        <h1>dadffdadas</h1>
+        <h1 id="name">dadffdadas</h1>
       </div>
       <div class="graphs">
         <h1>graph1</h1>
