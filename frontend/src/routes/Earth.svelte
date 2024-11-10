@@ -1,27 +1,29 @@
 <script>
   import { onMount } from "svelte";
   import { browser } from "$app/environment";
-  let earth;
-  let N = 20;
-  let arcsData = Array.from({ length: N }, () => ({
-    startLat: [Math.round(Math.random() * 3)] *180,
-    startLng: [Math.round(Math.random() * 3)] *360,
-    endLat: [Math.round(Math.random() * 3)] *360,
-    endLng: [Math.round(Math.random() * 3)] *180,
-    color: [
-      ["red", "white", "blue", "green"][Math.round(Math.random() * 3)],
-      ["red", "white", "blue", "green"][Math.round(Math.random() * 3)],
-    ],
-  }));
+  export let earth;
+  let Globe;
 
   onMount(async () => {
     if (browser) {
-      const Globe = (await import("globe.gl")).default;
-      earth = Globe()
+      Globe = (await import("globe.gl")).default;
+    }
+    updateArcs([{
+        startLat: 0,
+        startLng: 0,
+        endLat: 51.2,
+        endLng: 0,
+        color: "red"
+      }])
+  });
+
+  export function updateArcs(arcsData) {
+    earth = Globe()
       .onArcClick((arc) => arcclick(arc))// ON CLICK TEMPLATE FUNCTION
         .globeImageUrl("/2k_earth_daymap.jpg")
         .width(2100)
         .showGraticules(true)
+        .showAtmosphere(true)
         .showAtmosphere(false)
         .arcStroke(1.5)
         .arcsData(arcsData)
@@ -29,6 +31,10 @@
         .arcDashLength(0.9)
         .arcDashGap(0.5)
         .arcDashAnimateTime(() => Math.random() * 4000 + 500)
+        .backgroundImageUrl("/2k_stars.jpg")(document.getElementById("earth"))
+        .arcsData(arcsData);
+  }
+
         .backgroundImageUrl("/2k_stars.jpg")(document.getElementById("earth"));
     }
   });
