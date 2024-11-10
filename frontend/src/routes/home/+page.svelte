@@ -37,15 +37,16 @@
       // Parse the JSON response
       data = await response.json();
 
-      console.log("HERE")
-      earth.updateArcs([{
-        startLat: 0,
-        startLng: 0,
-        endLat: 89,
-        endLng: 32,
-        color: "red"
-      }]);
-
+      console.log("HERE");
+      earth.updateArcs([
+        {
+          startLat: 0,
+          startLng: 0,
+          endLat: 89,
+          endLng: 32,
+          color: "red",
+        },
+      ]);
     } catch (err) {
       error = err.message;
       console.log(error);
@@ -98,7 +99,6 @@
   onMount(getCoordinates);
 </script>
 
-
 <div class="timestamp-container">
   <div class="left">
     <Timestamp bind:epochTime={epochTime1} />
@@ -113,7 +113,13 @@
   timelineWidth="1550"
   sendGetRequest={fetchData}
 />
-<Earth bind:this={earth}/>
+<Earth
+  bind:this={earth}
+  bind:marker2Position
+  bind:epochTime1
+  bind:epochTime2
+  bind:marker1Position
+/>
 
 <style>
   .timestamp-container {
@@ -125,13 +131,12 @@
     padding-top: 20px;
     pointer-events: none;
   }
-  .left{
-
+  .left {
     padding-right: 10%;
     padding-left: 10%;
     pointer-events: none;
   }
-  .right{
+  .right {
     padding-right: 10%;
     padding-left: 149%;
     pointer-events: none;
