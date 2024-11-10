@@ -80,7 +80,7 @@
   let epochSeconds = Math.floor(currentDateTime.getTime() / 1000);
 </script>
 
-<Navbar />
+
 <Timeline
   bind:normPos1={marker1Position}
   bind:normPos2={marker2Position}
