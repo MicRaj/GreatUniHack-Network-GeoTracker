@@ -8,6 +8,7 @@
   let loading = false;
   let error;
   let data;
+  let earth;
 
   // Get current date and time
   let currentDateTime = new Date();
@@ -26,7 +27,7 @@
       loading = true;
       // Replace with your API endpoint
       const response = await fetch(
-        `http://127.0.0.1:8000/data?starttime=${epochTime1}&endtime=${epochTime2}/`
+        `http://127.0.0.1:8000/data?starttime=${epochTime1}&endtime=${epochTime2}`
       ); // TODO ROUTE
 
       if (!response.ok) {
@@ -35,6 +36,16 @@
 
       // Parse the JSON response
       data = await response.json();
+
+      console.log("HERE")
+      earth.updateArcs([{
+        startLat: 0,
+        startLng: 0,
+        endLat: 89,
+        endLng: 32,
+        color: "red"
+      }]);
+
     } catch (err) {
       error = err.message;
       console.log(error);
@@ -102,7 +113,7 @@
   timelineWidth="1550"
   sendGetRequest={fetchData}
 />
-<Earth />
+<Earth bind:this={earth}/>
 
 <style>
   .timestamp-container {
