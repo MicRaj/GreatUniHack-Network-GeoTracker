@@ -73,6 +73,11 @@
   // Call the function to get coordinates when the component is mounted
   import { onMount } from "svelte";
   onMount(getCoordinates);
+
+  // Get current date and time
+  let currentDateTime = new Date();
+  // Convert to epoch time in seconds
+  let epochSeconds = Math.floor(currentDateTime.getTime() / 1000);
 </script>
 
 <Navbar />
