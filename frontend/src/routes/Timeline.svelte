@@ -64,9 +64,7 @@
 
 <div class="center-wrapper">
   <div class="timestamps-container">
-  <div class="timestamps" style="color: white;">
-     <p>11/10/24-2:35</p><p>11/10/24-2:36</p>
-    </div>
+
   <div
     class="timeline-container"
     style="width: {parseInt(timelineWidth) + 8}px"
@@ -113,7 +111,7 @@
     align-items: center;
     width: 100%;
     z-index: 3;
-    padding-top: 30px;
+    padding-top: 80px;
     background-color: #0C0C0C;
     opacity: 65%;
   }

@@ -28,7 +28,9 @@
 <style>
   .datetime-display {
     font-family: Arial, sans-serif;
-    color: #333;
+    margin: 10%;
+    text-wrap: nowrap;
+    color: white;
   }
   .datetime-display p {
     margin: 0.5em 0;
