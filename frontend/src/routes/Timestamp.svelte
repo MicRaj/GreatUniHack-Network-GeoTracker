@@ -1,0 +1,37 @@
+<script>
+  import { onMount } from "svelte";
+
+  // Props
+  export let epochTime; // Epoch timestamp in seconds
+  export let autoUpdate = false; // Boolean to enable/disable live updates
+
+  // Convert the epoch time to a Date object
+  let dateTime;
+  let interval;
+
+  // Function to update the dateTime
+  $: dateTime = new Date(epochTime * 1000);
+
+  // Format date and time as DD-MM-YYYY, HH:MM:SS
+  $: formattedDate = dateTime.toLocaleDateString("en-GB"); // Format as DD-MM-YYYY
+  $: formattedTime = dateTime.toLocaleTimeString("en-GB", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
+</script>
+
+<div class="datetime-display">
+  <p>{formattedDate}, {formattedTime}</p>
+</div>
+
+<style>
+  .datetime-display {
+    font-family: Arial, sans-serif;
+    color: #333;
+  }
+  .datetime-display p {
+    margin: 0.5em 0;
+    font-size: 1.2em;
+  }
+</style>

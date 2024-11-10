@@ -1,5 +1,5 @@
 <script>
-  import Navbar from "../Navbar.svelte";
+  import Timestamp from "../Timestamp.svelte";
   import Timeline from "../Timeline.svelte";
   import Earth from "../Earth.svelte";
 
@@ -9,13 +9,25 @@
   let error;
   let data;
 
+  // Get current date and time
+  let currentDateTime = new Date();
+  // Convert to epoch time in seconds
+  let present = Math.floor(currentDateTime.getTime() / 1000);
+  let past = present - 86400; // 24 hours ago
+
+  // Set the epoch time for the timestamps
+  $: epochTime1 = Math.floor(past + (present - past) * marker1Position);
+  $: epochTime2 = Math.floor(past + (present - past) * marker2Position);
+
   // Function to fetch data from an API
   async function fetchData() {
     try {
       // Set loading to true while fetching data
       loading = true;
       // Replace with your API endpoint
-      const response = await fetch("http://127.0.0.1:8000/items/"); // TODO ROUTE
+      const response = await fetch(
+        `http://127.0.0.1:8000/data?starttime=${epochTime1}&endtime=${epochTime2}/`
+      ); // TODO ROUTE
 
       if (!response.ok) {
         throw new Error(`Error: ${response.status}`);
@@ -73,14 +85,13 @@
   // Call the function to get coordinates when the component is mounted
   import { onMount } from "svelte";
   onMount(getCoordinates);
-
-  // Get current date and time
-  let currentDateTime = new Date();
-  // Convert to epoch time in seconds
-  let epochSeconds = Math.floor(currentDateTime.getTime() / 1000);
 </script>
 
-
+<p>{marker1Position} {marker2Position}</p>
+<div class="timestamp-container">
+  <Timestamp bind:epochTime={epochTime1} />
+  <Timestamp bind:epochTime={epochTime2} />
+</div>
 <Timeline
   bind:normPos1={marker1Position}
   bind:normPos2={marker2Position}
@@ -88,3 +99,17 @@
   sendGetRequest={fetchData}
 />
 <Earth />
+
+<style>
+  .timestamp-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .timestamp-container > * {
+    flex: 0 1 auto;
+    font-size: 1.2em;
+  }
+</style>
