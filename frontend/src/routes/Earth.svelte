@@ -19,6 +19,8 @@
         .width(2100)
         .showGraticules(true)
         .showAtmosphere(true)
+        .arcStroke(1.5)
+        .arcsData(arcsData)
         .arcColor("color")
         .arcDashLength(0.9)
         .arcStroke(1.5)
