@@ -24,7 +24,6 @@
         .width(2100)
         .showGraticules(true)
         .showAtmosphere(true)
-        .showAtmosphere(false)
         .arcStroke(1.5)
         .arcsData(arcsData)
         .arcColor("color")
@@ -35,9 +34,6 @@
         .arcsData(arcsData);
   }
 
-        .backgroundImageUrl("/2k_stars.jpg")(document.getElementById("earth"));
-    }
-  });
   function arcclick(arc){//templpate function for on click stuff
     let name = document.getElementById("name");
      name.innerText = arc.color;
