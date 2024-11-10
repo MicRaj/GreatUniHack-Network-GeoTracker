@@ -53,9 +53,10 @@
         }
       }
 
+if (earth){
       console.log("HERE")
       earth.updateArcs(newArcsData);
-
+}
     // } catch (err) {
     //   error = err.message;
     //   console.log(error);

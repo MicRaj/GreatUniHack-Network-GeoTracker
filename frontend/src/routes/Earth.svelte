@@ -5,18 +5,21 @@
   let Globe;
 
   let selectedTitle = "Select a node!";
+  let selectedacc = "We'll show the accuracy here!";
+  let selectedpost = "We'll show the post-code here!";
 
   onMount(async () => {
     if (browser) {
       Globe = (await import("globe.gl")).default;
 
-      updateArcs([]);
+    //   updateArcs([]);
     }
   });
 
   export function updateArcs(arcsData) {
+    if (browser) {
     earth = Globe()
-    .onArcClick((arc) => arcclick(arc))
+        .onArcClick((arc) => arcclick(arc))
         .globeImageUrl("/nasa_hq.jpg")
         .width(2100)
         .showGraticules(true)
@@ -29,7 +32,7 @@
         // .arcDashGap(1.0)
         // .arcDashAnimateTime(() => Math.random() * 4000 + 500)
         .backgroundImageUrl("/2k_stars.jpg")(document.getElementById("earth"))
-        .arcsData(arcsData);
+        .arcsData(arcsData);}
   }
 
   function arcclick(arc){//templpate function for on click stuff
@@ -40,6 +43,12 @@
     } else {
       selectedTitle = arc._orig.registered_country;
     }
+    selectedacc = arc._orig.accuracy_radius;
+    if(arc._orig.postal_code != null){
+      selectedpost = arc._orig.postal_code;
+    } else {
+        selectedpost = "No post-code available";
+    }
   }
 </script>
 
@@ -48,6 +57,8 @@
     <div class="data">
       <div class="title">
         <h1 id="title">{selectedTitle}</h1>
+        <h4>accuracy:{selectedacc}</h4>
+        <h4>post-code:{selectedpost}</h4>
       </div>
       <div class="graphs">
         <h1>graph1</h1>
@@ -102,9 +113,16 @@
   }
   div.title {
     width: 100%;
-    height: 100px;
     margin: 5px;
     padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  div.title h1 {
+    font-size: 3.5em;
+    margin: 0;
   }
   div.graphs {
     display: flex;
