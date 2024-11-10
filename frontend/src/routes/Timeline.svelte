@@ -112,17 +112,18 @@
     width: 100%;
     z-index: 3;
     padding-top: 80px;
+    padding-bottom: 2%;
     background-color: rgba(12, 12, 12, 0.8);
   }
 
   .timeline-container {
-    position: relative;
+    position: absolute;
     display: flex;
     align-items: stretch;
     width: 100%;
+    left: 4%;
     height: 30px;
     background-color: rgba(12, 12, 12, 0.8);
-    z-index: 4;
     border-radius: 1px;
   }
 

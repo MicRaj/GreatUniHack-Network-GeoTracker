@@ -122,7 +122,7 @@
   }
   .right{
     padding-right: 10%;
-    padding-left: 150%;
+    padding-left: 149%;
     pointer-events: none;
   }
 
