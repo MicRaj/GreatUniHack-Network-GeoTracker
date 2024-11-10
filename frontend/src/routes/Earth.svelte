@@ -19,25 +19,48 @@
 
   export function updateArcs(arcsData) {
     earth = Globe()
+      .onArcClick((arc) => arcclick(arc))// ON CLICK TEMPLATE FUNCTION
         .globeImageUrl("/2k_earth_daymap.jpg")
         .width(2100)
         .showGraticules(true)
         .showAtmosphere(true)
+        .arcStroke(1.5)
+        .arcsData(arcsData)
         .arcColor("color")
         .arcDashLength(0.9)
-        .arcDashGap(1.0)
+        .arcDashGap(0.5)
         .arcDashAnimateTime(() => Math.random() * 4000 + 500)
         .backgroundImageUrl("/2k_stars.jpg")(document.getElementById("earth"))
         .arcsData(arcsData);
   }
 
+  function arcclick(arc){//templpate function for on click stuff
+    let name = document.getElementById("name");
+     name.innerText = arc.color;
+    console.log(arc.color);
+
+  }
+  function addNewArc() {
+    arcsData = [
+      ...arcsData,
+      {
+        startLat: 55.7558,
+        startLng: 37.6173,
+        endLat: 47.751076,
+        endLng: -120.740135,
+        color: "red",
+      },
+    ];
+    earth.arcsData(arcsData);
+    console.log(arcsData); // To verify that the new line is added
+  }
 </script>
 
 <div class="position">
   <div class="border">
     <div class="data">
       <div class="title">
-        <h1>dadffdadas</h1>
+        <h1 id="name">dadffdadas</h1>
       </div>
       <div class="graphs">
         <h1>graph1</h1>
