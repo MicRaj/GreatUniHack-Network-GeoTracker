@@ -4,40 +4,46 @@
   export let earth;
   let Globe;
 
+  let selectedTitle = "Select a node!";
+
   onMount(async () => {
     if (browser) {
       Globe = (await import("globe.gl")).default;
     }
-    updateArcs([{
-        startLat: 0,
-        startLng: 0,
-        endLat: 51.2,
-        endLng: 0,
-        color: "red"
-      }])
   });
 
   export function updateArcs(arcsData) {
     earth = Globe()
+    .onArcClick((arc) => arcclick(arc))
         .globeImageUrl("/2k_earth_daymap.jpg")
         .width(2100)
         .showGraticules(true)
         .showAtmosphere(true)
         .arcColor("color")
         .arcDashLength(0.9)
-        .arcDashGap(1.0)
-        .arcDashAnimateTime(() => Math.random() * 4000 + 500)
+        .arcStroke(1.5)
+        // .arcDashGap(1.0)
+        // .arcDashAnimateTime(() => Math.random() * 4000 + 500)
         .backgroundImageUrl("/2k_stars.jpg")(document.getElementById("earth"))
         .arcsData(arcsData);
   }
 
+  function arcclick(arc){//templpate function for on click stuff
+    console.log(arc)
+    console.log(arc.color);
+    if (arc._orig.place != ""){
+      selectedTitle = arc._orig.place
+    } else {
+      selectedTitle = arc._orig.registered_country;
+    }
+  }
 </script>
 
 <div class="position">
   <div class="border">
     <div class="data">
       <div class="title">
-        <h1>dadffdadas</h1>
+        <h1 id="title">{selectedTitle}</h1>
       </div>
       <div class="graphs">
         <h1>graph1</h1>

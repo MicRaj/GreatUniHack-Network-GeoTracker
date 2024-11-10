@@ -48,6 +48,7 @@
             endLat: item.latitude,
             endLng: item.longitude,
             color: "red",
+            _orig: item
           });
         }
       }
