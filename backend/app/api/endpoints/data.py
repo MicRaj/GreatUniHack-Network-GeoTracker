@@ -59,3 +59,12 @@ JOIN
             }, **geo})
 
     return combined
+
+@router.get("/range")
+def range(db: SessionDep):
+    out = db.exec(text(f"""
+SELECT MIN(timestamp) as start, MAX(timestamp) as end FROM pcapentry;
+"""))
+    fetched = out.fetchone()
+
+    return {"start": fetched[0], "end": fetched[1]}
