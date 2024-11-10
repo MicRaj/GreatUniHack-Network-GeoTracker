@@ -3,6 +3,6 @@
   import Earth from "../Earth.svelte";
 
 </script>
-<Navbar />
+
 
 <Earth />

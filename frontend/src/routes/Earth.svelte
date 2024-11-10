@@ -1,22 +1,25 @@
 <script>
     import { onMount } from 'svelte';
     import { browser } from '$app/environment';
+    let earth;
+    let N = 20;
+    let arcsData = Array.from({ length: N }, () => ({
+    startLat: 53.484824,
+    startLng: -2.240126,
+    endLat: 38.897957,
+    endLng: -77.036560,
+    color: [
+        ['red', 'white', 'blue', 'green'][Math.round(Math.random() * 3)],
+        ['red', 'white', 'blue', 'green'][Math.round(Math.random() * 3)]
+    ]
+    }));
+
 
 onMount(async() => {
     if (browser) {
 
-        // Gen random data
-        const N = 20;
-        const arcsData = [...Array(N).keys()].map(() => ({
-        startLat: 53.484824,
-        startLng: -2.240126,
-        endLat: (Math.random() - 0.5) * 180,
-        endLng: (Math.random() - 0.5) * 360,
-        color: [['red', 'white', 'blue', 'green'][Math.round(Math.random() * 3)], ['red', 'white', 'blue', 'green'][Math.round(Math.random() * 3)]]
-        }));
-
         const Globe = (await import('globe.gl')).default;
-        const earth = Globe()
+        earth = Globe()
             .globeImageUrl('/2k_earth_xray_map.png')
             .width(2200)
             .showGraticules(true)
@@ -24,13 +27,29 @@ onMount(async() => {
             .arcsData(arcsData)
             .arcColor('color')
             .arcDashLength(0.9)
-            .arcDashGap(4.0)
+            .arcDashGap(1.0)
             .arcDashAnimateTime(() => Math.random() * 4000 + 500)
             .backgroundImageUrl('/2k_stars.jpg')
         (document.getElementById('earth'))
     }
+
+
 });
 
+function addNewArc() {
+  arcsData = [
+    ...arcsData,
+    {
+      startLat: 55.7558,
+      startLng: 37.6173,
+      endLat: 47.751076,
+      endLng: -120.740135,
+      color: 'red'
+    }
+  ];
+  earth.arcsData(arcsData);
+  console.log(arcsData); // To verify that the new line is added
+}
 
 </script>
 
@@ -90,6 +109,8 @@ onMount(async() => {
         <h1>dadffdadas</h1>
     </div>
        <div class="graphs"><h1> graph1</h1> <h1> graph2</h1><h1> graph3</h1><h1> graph4</h1>
+        <button id="line-test" on:click={addNewArc}>click me</button>
+              
     </div> 
     </div>        
     </div>
