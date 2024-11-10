@@ -82,8 +82,4 @@
   timelineWidth="1000"
   sendGetRequest={fetchData}
 />
-<div>
-  <p>Marker 1 Position: {marker1Position}</p>
-  <p>Marker 2 Position: {marker2Position}</p>
-</div>
 <Earth />
