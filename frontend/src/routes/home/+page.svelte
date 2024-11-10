@@ -3,7 +3,12 @@
   import Timeline from "../Timeline.svelte";
   import Earth from "../Earth.svelte";
 
+  // Get user coordinates on page load.
+  let latitude = 0;
+  let longitude = 0;
+  let errorMessage = null;
   let marker1Position = 0;
+  $: arcsData = [];
   let marker2Position = 1;
   let loading = false;
   let error;
@@ -34,7 +39,17 @@
       }
 
       // Parse the JSON response
-      data = await response.json();
+      // Extract latitude and longitude from each data item and store in arcsData
+      console.log(latitude, longitude);
+      arcsData = response.map((item) => ({
+        startLat: latitude,
+        startLng: longitude,
+        endLat: item.latitude,
+        endLng: item.longitude,
+        color: "red",
+      }));
+      console.log(arcsData);
+      // Update the earth arcs data
     } catch (err) {
       error = err.message;
       console.log(error);
@@ -42,11 +57,6 @@
       loading = false;
     }
   }
-
-  // Get user coordinates on page load.
-  let latitude = null;
-  let longitude = null;
-  let errorMessage = null;
 
   // Function to get the user's coordinates
   function getCoordinates() {
@@ -85,6 +95,11 @@
   // Call the function to get coordinates when the component is mounted
   import { onMount } from "svelte";
   onMount(getCoordinates);
+  $: {
+    if (latitude !== 0 && longitude !== 0) {
+      fetchData(); // Fetch new data when geolocation is updated
+    }
+  }
 </script>
 
 <p>{marker1Position} {marker2Position}</p>
@@ -98,7 +113,7 @@
   timelineWidth="1000"
   sendGetRequest={fetchData}
 />
-<Earth />
+<Earth bind:arcsData />
 
 <style>
   .timestamp-container {
@@ -106,10 +121,5 @@
     justify-content: space-between;
     align-items: center;
     padding: 20px;
-  }
-
-  .timestamp-container > * {
-    flex: 0 1 auto;
-    font-size: 1.2em;
   }
 </style>

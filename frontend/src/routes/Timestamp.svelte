@@ -1,13 +1,9 @@
 <script>
-  import { onMount } from "svelte";
-
   // Props
   export let epochTime; // Epoch timestamp in seconds
-  export let autoUpdate = false; // Boolean to enable/disable live updates
 
   // Convert the epoch time to a Date object
   let dateTime;
-  let interval;
 
   // Function to update the dateTime
   $: dateTime = new Date(epochTime * 1000);
