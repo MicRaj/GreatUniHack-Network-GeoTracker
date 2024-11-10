@@ -30,16 +30,28 @@ def get_geo_info(ip: str, db: Session):
     a = db.exec(text("SELECT * FROM geoip WHERE network IN (\""+'\",\"'.join(generate_subnets(ip))+"\");"))
     fetched = a.fetchone()
 
-    # TODO: Fix this as is very botched
-    dict_duct_tape = {
-        "network": fetched[0],
-        "post_code": fetched[1],
-        "latitude": fetched[2],
-        "longitude": fetched[3],
-        "accuracy_radius": fetched[4],
-        "registered_country": fetched[5],
-        "represented_country": fetched[6],
-        "place": fetched[7]
-    }
+    if fetched is None:
+        dict_duct_tape = {
+            "network": None,
+            "post_code": None,
+            "latitude": None,
+            "longitude": None,
+            "accuracy_radius": None,
+            "registered_country": None,
+            "represented_country": None,
+            "place": None
+        }
+    else:
+        # TODO: Fix this as is very botched
+        dict_duct_tape = {
+            "network": fetched[0],
+            "post_code": fetched[1],
+            "latitude": fetched[2],
+            "longitude": fetched[3],
+            "accuracy_radius": fetched[4],
+            "registered_country": fetched[5],
+            "represented_country": fetched[6],
+            "place": fetched[7]
+        }
 
     return dict_duct_tape
