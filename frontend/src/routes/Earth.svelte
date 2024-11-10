@@ -4,22 +4,17 @@
   export let earth;
   let Globe;
 
+  let selectedTitle = "Select a node!";
+
   onMount(async () => {
     if (browser) {
       Globe = (await import("globe.gl")).default;
     }
-    updateArcs([{
-        startLat: 0,
-        startLng: 0,
-        endLat: 51.2,
-        endLng: 0,
-        color: "red"
-      }])
   });
 
   export function updateArcs(arcsData) {
     earth = Globe()
-      .onArcClick((arc) => arcclick(arc))// ON CLICK TEMPLATE FUNCTION
+    .onArcClick((arc) => arcclick(arc))
         .globeImageUrl("/2k_earth_daymap.jpg")
         .width(2100)
         .showGraticules(true)
@@ -28,31 +23,21 @@
         .arcsData(arcsData)
         .arcColor("color")
         .arcDashLength(0.9)
-        .arcDashGap(0.5)
-        .arcDashAnimateTime(() => Math.random() * 4000 + 500)
+        .arcStroke(1.5)
+        // .arcDashGap(1.0)
+        // .arcDashAnimateTime(() => Math.random() * 4000 + 500)
         .backgroundImageUrl("/2k_stars.jpg")(document.getElementById("earth"))
         .arcsData(arcsData);
   }
 
   function arcclick(arc){//templpate function for on click stuff
-    let name = document.getElementById("name");
-     name.innerText = arc.color;
+    console.log(arc)
     console.log(arc.color);
-
-  }
-  function addNewArc() {
-    arcsData = [
-      ...arcsData,
-      {
-        startLat: 55.7558,
-        startLng: 37.6173,
-        endLat: 47.751076,
-        endLng: -120.740135,
-        color: "red",
-      },
-    ];
-    earth.arcsData(arcsData);
-    console.log(arcsData); // To verify that the new line is added
+    if (arc._orig.place != ""){
+      selectedTitle = arc._orig.place
+    } else {
+      selectedTitle = arc._orig.registered_country;
+    }
   }
 </script>
 
@@ -60,7 +45,7 @@
   <div class="border">
     <div class="data">
       <div class="title">
-        <h1 id="name">dadffdadas</h1>
+        <h1 id="title">{selectedTitle}</h1>
       </div>
       <div class="graphs">
         <h1>graph1</h1>
