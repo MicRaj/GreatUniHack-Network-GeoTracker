@@ -9,6 +9,8 @@
   onMount(async () => {
     if (browser) {
       Globe = (await import("globe.gl")).default;
+
+      updateArcs([]);
     }
   });
 
