@@ -43,10 +43,10 @@ async def upload_pcap(db: SessionDep, file: UploadFile = File(...) ):
             "read": entriesRead}
 
 @router.get("/getStats")
-async def get_stats(startTimestamp: int, endTimestamp: int, db: SessionDep):
+async def get_stats(starttimestamp: int, endtimestamp: int, db: SessionDep):
     # query = select(PCAPEntry).where(PCAPEntry.timestamp >= startTimestamp).where(PCAPEntry.timestamp <= endTimestamp).group_by(PCAPEntry.protocol)
-    # entries = db.execute(text("SELECT protocol, COUNT(*), SUM(length) FROM pcapentry GROUP BY protocol;")).all()
-    entries = db.execute(text("SELECT protocol, COUNT(*) FROM pcapentry GROUP BY protocol;")).all()
+    entries = db.execute(text(f"SELECT protocol, COUNT(*), SUM(length) FROM pcapentry WHERE timestamp BETWEEN {starttimestamp} AND {endtimestamp} GROUP BY protocol;")).all()
+    # entries = db.execute(text("SELECT protocol, COUNT(*) FROM pcapentry GROUP BY protocol;")).all()
 
     ret = []
 
@@ -54,7 +54,7 @@ async def get_stats(startTimestamp: int, endTimestamp: int, db: SessionDep):
         temp = {
             "protocol": entry[0],
             "count" : entry[1],
-            # "size": entry[2]
+            "size": entry[2]
         }
         ret.append(temp)
 
