@@ -1,9 +1,12 @@
 from typing import Union
 from fastapi import FastAPI
+from app.core.database import create_db_and_tables, SessionDep
+from app.core.geoip import get_geo_info
 from app.api.endpoints.upload import router as upload_router
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+create_db_and_tables()
 
 app.include_router(upload_router, prefix="/upload")
 
@@ -26,7 +29,11 @@ app.add_middleware(
 def read_root():
     return {"Hello": "World"}
 
+@app.get("/ip_info/{ip}")
+def ip_info(ip: str, session: SessionDep):
+    return {"response": get_geo_info(ip, session)}
 
 @app.get("/items/")
 def read_item():
     return {"message":"Hello"}
+
